@@ -10,6 +10,17 @@
     enabled: yes
 
 
+# - name: import tasks from common
+#   ansible.builtin.import_role:
+#     name: common
+#     tasks_from: main
+
+# - name : copy expense expense.conf
+#   ansible.builtin.template:
+#     src: expense.conf.j2
+#     dest: /etc/nginx/default.d/expense.conf
+#   notify:
+#   - Restart nginx
 
 
    
