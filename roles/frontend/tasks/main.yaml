@@ -7,7 +7,7 @@
   ansible.builtin.service:
     name: nginx
     state: started
-    enabled: true
+    enabled: yes
 
 - name: import tasks from common
   ansible.builtin.import_role:
