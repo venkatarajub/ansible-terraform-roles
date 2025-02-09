@@ -3,10 +3,10 @@
     name: mysql-server
     state: present
 
-- name: start mysql server
-  ansible.built.service:
+- name: Start service httpd, if not started
+  ansible.builtin.service:
     name: mysqld
-    state: "started"
+    state: started
     enabled: yes
 
 - name: connect to mysql server
