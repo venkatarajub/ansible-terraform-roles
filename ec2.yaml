@@ -10,6 +10,7 @@
     security_group: "sg-04177bb468ff68998"
     ami_id: "ami-09c813fb71547fc4f"
     subnet_id: "subnet-0734963ca90a3817f"
+    domain_name: "vensa.online"
     
   tasks:
   - name: install boto3 and botocore
@@ -33,6 +34,31 @@
   - name: print ec2 info
     ansible.builtin.debug:
       msg: "{{ ec2_instances }}"
+
+  - name: create private r53 records
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address }}"
+      overwrite: true
+      wait: true
+    loop: "{{ ec2_instances.results }}"
+
+  - name: create public r53 records
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ domain_name }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].public_ip_address }}"
+      overwrite: true
+      wait: true
+    loop: "{{ ec2_instances.results }}"
+    when: item.item == "frontend"
 
 
   
