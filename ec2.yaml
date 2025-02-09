@@ -12,6 +12,13 @@
     subnet_id: "subnet-0734963ca90a3817f"
     
   tasks:
+  - name: install boto3 and botocore
+    ansible.builtin.pip:
+      name:
+      - boto3
+      - botocore
+      executable: pip3.3
+
   - name: create 3 ec2 instances
     amazon.aws.ec2_instance:
       name: "{{ item }}"
@@ -21,6 +28,10 @@
       image_id: "{{ ami_id }}"
     loop: "{{ instances }}"
     register: ec2_instances
+
+  - name: print ec2 info
+    ansible.builtin.debug:
+      msg: "{{ ec2_instances }}"
 
 
   
