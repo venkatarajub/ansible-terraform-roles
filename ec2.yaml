@@ -1,0 +1,25 @@
+- name: create 3 ec2 instances
+  hosts: local
+  connection: local
+  become: yes
+  vars:
+    instances:
+    - mysql
+    - backend
+    - frontend
+    security_group: "sg-04177bb468ff68998"
+    ami_id: "ami-09c813fb71547fc4f"
+    subnet_id: "subnet-0734963ca90a3817f"
+    
+  tasks:
+  - name: create 3 ec2 instances
+    amazon.aws.ec2_instance:
+      name: "{{ item }}"
+      vpc_subnet_id: "{{ subnet_id }}"
+      instance_type: "t2.micro"
+      security_group: "{{ security_group }}"
+      image_id: "{{ ami_id }}"
+    loop: "{{ instances }}"
+
+
+  
