@@ -1,0 +1,5 @@
+- name: configure mysql server
+  hosts: mysql.vensa.online
+  become: yes
+  roles:
+  - mysql
