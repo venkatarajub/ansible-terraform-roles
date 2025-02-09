@@ -20,7 +20,7 @@
       - botocore
       executable: pip3.9
 
-  - name: create 3 ec2 instances
+  - name: delete 3 ec2 instances
     amazon.aws.ec2_instance:
       state: absent
       name: "{{ item }}"
@@ -32,7 +32,7 @@
     loop: "{{ instances }}"
     register: ec2_instances  
 
-  - name: create private r53 records
+  - name: delete private r53 records
     amazon.aws.route53:
       state: absent
       zone: "{{ domain_name }}"
@@ -44,7 +44,7 @@
       wait: true
     loop: "{{ ec2_instances.results }}"
 
-  - name: create public r53 records
+  - name: delete public r53 records
     amazon.aws.route53:
       state: absent
       zone: "{{ domain_name }}"
