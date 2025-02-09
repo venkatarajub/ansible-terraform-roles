@@ -26,6 +26,7 @@
       instance_type: "t2.micro"
       security_group: "{{ security_group }}"
       image_id: "{{ ami_id }}"
+      region: "us-east-1"
     loop: "{{ instances }}"
     register: ec2_instances
 
