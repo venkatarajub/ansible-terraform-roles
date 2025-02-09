@@ -1,4 +1,4 @@
-- name: create 3 ec2 instances
+- name: create ec2 instances
   hosts: local
   connection: local
   become: yes
@@ -20,6 +20,7 @@
       security_group: "{{ security_group }}"
       image_id: "{{ ami_id }}"
     loop: "{{ instances }}"
+    register: ec2_instances
 
 
   
