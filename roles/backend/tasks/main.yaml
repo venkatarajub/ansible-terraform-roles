@@ -16,21 +16,10 @@
     name: expense
     state: present
 
-- name: create app dir
-  ansible.builtin.file:
-    path: /app
-    state: directory
-    
-- name:  download the backend code
-  ansible.builtin.get_url:
-    url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
-    dest: /tmp/backend.zip
-    
-- name: unarachive backend code
-  ansible.builtin.unarchive:
-    src: /tmp/backend.zip
-    dest: /app
-    remote_src: yes
+- name: import tasks from common
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: main
 
 - name: download dependencies
   ansible.builtin.command: "npm install"

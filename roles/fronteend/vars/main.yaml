@@ -1,0 +1,3 @@
+app_location: /usr/share/nginx/html
+component: frontend
+BACKEND_HOST: backend.vensa.online
