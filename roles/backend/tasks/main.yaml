@@ -8,7 +8,7 @@
   ansible.builtin.package:
     name:
     - nodejs
-    - mysql-server
+    - mysql
     state: present
 
 - name: create expense user
